@@ -1,14 +1,17 @@
 <?php
 
-$server = "localhost";
-$username = "throwit";
-$password = "password";
-$database = "throwit";
+    //establishing the connection with mysql
+    $server = "localhost";
+    $username = "throwit";
+    $password = "password";
+    $database = "throwit";
 
-$conn = new mysqli($server, $username, $password, $database);
+    $conn = new mysqli($server, $username, $password, $database);
 
-if($conn -> connect_error){
-    die("Connect failed: " . $conn->connect_error);
-}
+    if($conn -> connect_error){
+        die("Connect failed: " . $conn->connect_error);
+    }
+
+
 
 ?>
