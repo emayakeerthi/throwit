@@ -1,17 +1,28 @@
 <?php
+include 'connect.php';
 
-$server = "localhost";
-$username = "throwit";
-$password = "password";
-$database = "throwit";
+// Receiving values from form
+$id = $_POST["id"];
+$pswd = $_POST["pswd"];
 
-$conn = new mysqli($server, $username, $password, $database);
+// connecting with database and reterive password
+$sql = "SELECT pswd from access_credentials where id = ?";
 
-if($conn -> connect_error){
-    die("Connect failed: " . $conn->connect_error);
+$stmt = $conn -> prepare($sql);
+$stmt->bind_param('s', $id);
+$stmt->execute();
+
+//extract password from fetched tuple
+$result = $stmt->get_result();
+$data = $result->fetch_assoc();
+$ret_pswd = $data["pswd"];
+
+//comparing the given password and reterived password
+if($pswd == $ret_pswd){
+    echo true;
 }
 else{
-    echo "Working fine";
+    echo false;
 }
 
 ?>
