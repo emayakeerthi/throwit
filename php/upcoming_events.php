@@ -14,7 +14,7 @@
     $data = [];
     foreach ($documents as $doc) {
         $temp = [];
-        if(strtotime($doc['date'])<=strtotime(date("d/m/Y"))){
+        if(strtotime($doc['date']) > strtotime(date("d/m/Y"))){
             $temp['title'] = $doc['title'];
             $temp['event_id'] = $doc['event_id'];
             $temp['organizer'] = $doc['organizer'];
@@ -25,7 +25,4 @@
     }
     echo json_encode($data);
     
-    // foreach($documents as $document){
-    //     echo json_encode($document);
-    // }
 ?>

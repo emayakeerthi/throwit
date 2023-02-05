@@ -1,0 +1,9 @@
+
+.col{
+    padding-left: 2%;
+    margin: 40px 0px 10px 20px;
+}
+
+.col-2{
+    border-right: 2px solid lightgray;
+}
