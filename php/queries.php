@@ -6,20 +6,18 @@
     $db = $mdb->throwit;
 
     //connecting collections
-    $collections = $db->events;
+    $collections = $db->queries;
 
- 
+
     //fetching all the records
-    $documents = $collections -> find(array());
-    
+    $documents = $collections -> find(['event_id'=>"EID002"]);
+    //echo gettype($documents);
     $data = [];
     foreach ($documents as $doc) {
         $temp = [];
-        $temp['title'] = $doc['title'];
+        $temp['query'] = $doc['query'];
+        $temp['query_id'] = $doc['query_id'];
         $temp['event_id'] = $doc['event_id'];
-        $temp['organizer'] = $doc['organizer'];
-        $temp['speaker'] = $doc['Speaker'];
-        $temp['date'] = $doc['date'];
         $data[] = $temp;
     }
     echo json_encode($data);
