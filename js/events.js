@@ -1,29 +1,36 @@
 window.addEventListener("load", ()=>{
-    var events = document.getElementById("events");
-
     //getting the event data from mongodb 
-    fetch("http://localhost/ThrowIt/php/events.php",{
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    $.ajax({
+        type: "POST",
+        url: "/ThrowIt/php/events.php",
+        data: {},
+        success: function(json){
+            var events = document.querySelector(".event");
+            //console.lotg(JSON.stringify(data));
+
+            //decode the json data throwed by the php
+            var data = JSON.parse(json); 
+            //console.log(data[0]);
+
+            //displaying the content dynamically
+            var table = document.createElement("table");
+            var row = table.insertRow(-1);
+            for(let i=0; i<data.length; i++){
+                var title = document.createElement("h3");
+                var a = document.createElement('a');
+                a.innerHTML = data[i].title;
+                //console.log(title.innerHTML);
+                a.href = "http://localhost/ThrowIt/"+data[i].event_id;
+                title.appendChild(a);
+                events.appendChild(title);
+            }
+
+            //table += "</table>";
+            // events.innerHTML = "";
+            // events.appendChild(table);
         },
-        body: events,
-    }).then((response) => response.json()).then((data)=> {
-        var table = "<table>";
-        
-        for(var event of data){
-            table += "<h3>" + event.title + "</h3>";
-            table += "<tr>";
-            table += "<td>Event ID: " + event.id + "</td>";
-            table += "<td>Organizer: " + event.organizer + "</td>";
-            table += "<td>Speaker: " + event.speaker + "</td>";
-            table += "<td>Date: " + event.date + "</td>";
-            table += "</tr><hr><br>"
+        error: function(response){
+            alert("Something Wrong: Not working")
         }
-
-        table += "</table>";
-
-        events.innerHTML = table;        
-    })
-
+    });
 });

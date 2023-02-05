@@ -8,7 +8,7 @@ $("#form").on("submit", function(event){
         },
         success: function(response){
             if(response==true){
-                alert("Successfull");
+                //alert("Successfull");
                 window.location.replace("/ThrowIt/index.html");
             }
             else{

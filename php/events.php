@@ -2,23 +2,28 @@
 
     include "mdb_connect.php";
 
+    //connecting database
+    $db = $mdb->throwit;
 
-    //fetching all the documents
-    try {
-        $filter = [];
-        $options = [];
+    //connecting collections
+    $collections = $db->events;
 
-        // Query to find inserts in a specific collection
-        $query = new MongoDB\Driver\Query($filter, $options);
-        $cursor = $mdb->executeQuery('throwit.events', $query);
 
-        //responding to the request made by the js
-        foreach ($cursor as $document) {
-            var_dump($document);
-        }
+    //fetching all the records
+    $documents = $collections -> find([]);
+
+    //echo gettype($documents);
+    $data = [];
+    foreach ($documents as $doc) {
+        $temp = [];
+        $temp['title'] = $doc['title'];
+        $temp['event_id'] = $doc['event_id'];
+        //$t['oldMain'] = $doc['oldMain'];
+        $data[] = $temp;
     }
-    catch (Throwable $e) {
-        echo "Captured Throwable: for insert : " . $e->getMessage() . PHP_EOL;
-    }
-
+    echo json_encode($data);
+    
+    // foreach($documents as $document){
+    //     echo json_encode($document);
+    // }
 ?>
