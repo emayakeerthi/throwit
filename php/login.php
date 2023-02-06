@@ -1,6 +1,7 @@
 <?php
 
     include 'connect.php';
+    include 'mdb_connect.php';
 
     // Receiving values from form
     $id = $_POST["id"];
@@ -20,7 +21,7 @@
 
     //comparing the given password and reterived password
     if($pswd == $ret_pswd){
-        
+        $redis->set("session_id", $id);
         echo true;
     }
     else{

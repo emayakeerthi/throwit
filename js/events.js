@@ -17,7 +17,7 @@ function display(json){
         var a = document.createElement('a');
         a.innerHTML = data[i].title;
         a.setAttribute("id", data[i].event_id);
-        a.setAttribute('href', '/ThrowIt/queries.html');
+        a.setAttribute('href', '#');
         a.classList.add("event-title")
         title.appendChild(a);
         div.appendChild(title);
@@ -58,7 +58,13 @@ window.addEventListener("load", ()=>{
         url: "/ThrowIt/php/events.php",
         data: {},
         success: function(json){
-            display(json);
+            if(!json){
+                window.location.replace('/ThrowIt/login.html');
+            }
+            else{
+                display(json);
+            }
+            
         },
         error: function(response){
             alert("Something Wrong: Not working")
@@ -68,15 +74,22 @@ window.addEventListener("load", ()=>{
 
 $(document).on("click", ".event-title", function(){
     alert("working : " + this.id);
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '/ThrowIt/queries.html',
-    //     data:{
-    //         event_id: this.id
-    //     },
-    //     success: function(response){},
-    //     error: function(response){}
-    // })
+    $.ajax({
+        type: 'POST',
+        url: '/ThrowIt/php/session.php',
+        data:{
+            event_id: this.id
+        },
+        success: function(response){
+            if(response){
+                window.location.replace('/ThrowIt/queries.html');
+            }
+            else{
+                alert("Something Wrong");
+            }
+        },
+        error: function(response){}
+    })
 });
 
 $(document).on("click", "#upcoming-events", function(){
@@ -98,6 +111,26 @@ $(document).on("click", "#upcoming-events", function(){
             document.getElementById("previous-events").classList.remove("active");
             document.getElementById("upcoming-events").classList.add("active");
             display(json);
+        },
+        error: function(response){
+            alert("Something Wrong: Not working")
+        }
+    });
+});
+
+$(document).on("click", "#logout", function(){
+    //alert("Logout button working");
+    $.ajax({
+        type: "POST",
+        url: "/ThrowIt/php/logout.php",
+        data: {},
+        success: function(response){
+            if(!response){
+                alert("Failed");
+            }
+            //var events = document.getElementsByClassName("events");
+            alert("Logout Successfully");
+            window.location.replace("/ThrowIt/login.html");
         },
         error: function(response){
             alert("Something Wrong: Not working")

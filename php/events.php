@@ -2,6 +2,10 @@
 
     include "mdb_connect.php";
 
+    if($redis->get('session_id')==false){
+        echo false;
+        exit();
+    }
     //connecting database
     $db = $mdb->throwit;
 

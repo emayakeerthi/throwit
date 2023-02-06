@@ -8,7 +8,7 @@
     //connecting collections
     $queries = $db->queries;
 
-    $event_id = "EID001";
+    $event_id = $redis->get("event_id");
 
     //fetching all the records
     $documents = $queries -> find(['event_id'=>$event_id]);

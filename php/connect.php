@@ -1,8 +1,8 @@
 <?php
 
     //establishing the connection with mysql
-    $server = "localhost";
-    $username = "throwit";
+    $server = "localhost:8111";
+    $username = "root";
     $password = "password";
     $database = "throwit";
 
@@ -11,7 +11,5 @@
     if($conn -> connect_error){
         die("Connect failed: " . $conn->connect_error);
     }
-
-
 
 ?>

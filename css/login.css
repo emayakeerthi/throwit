@@ -4,6 +4,9 @@ body{
 }
 
 .card{
-    margin-top: 10%;
+    margin-top: 4%;
 }
 
+label{
+    font-weight: 500;
+}

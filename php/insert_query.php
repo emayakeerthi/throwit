@@ -22,7 +22,7 @@
         'query' => $query,
         'query_id' => $query_id,
         'date' => date("d/m/Y"),
-        'event_id' => "EID001"
+        'event_id' => $redis->get("event_id")
     ]);
 
     $doc = $queries -> find(array("query_id"=>$query_id));
